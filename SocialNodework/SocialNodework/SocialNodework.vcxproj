@@ -143,6 +143,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="brock200_1.clq" />
+    <None Include="brock200_2.clq" />
+    <None Include="brock200_3.clq" />
+    <None Include="c-fat200-1.clq" />
+    <None Include="c-fat200-2.clq" />
+    <None Include="c-fat200-5.clq" />
+    <None Include="c-fat500-1.clq" />
+    <None Include="hamming6-2.clq" />
+    <None Include="hamming6-4.clq" />
+    <None Include="johnson16-2-4.clq" />
+    <None Include="johnson8-2-4.clq" />
+    <None Include="johnson8-4-4.clq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="inst_teste.txt" />
+    <Text Include="inst_teste1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
