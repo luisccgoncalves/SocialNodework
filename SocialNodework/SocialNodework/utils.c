@@ -34,7 +34,7 @@ int* init_dados(char *nome, int *n, int *iter)
 	return p;
 }
 
-void file2adjMat(int adjMat[MAXSIZE][MAXSIZE], int *vertices, int *nodeQty, char *filename) {
+void file2adjMat(int adjMat[MAXSIZE][MAXSIZE], int *vertices, int *arestas, char *filename) {
 
 
 	FILE *f;
@@ -50,7 +50,7 @@ void file2adjMat(int adjMat[MAXSIZE][MAXSIZE], int *vertices, int *nodeQty, char
 	while (fgets(line, sizeof line, f) != NULL) {
 
 		if (line[0] == 'p') {
-			sscanf(line, "%*s %*s %d %d", nodeQty, vertices);
+			sscanf(line, "%*s %*s %d %d", vertices, arestas);
 			break;
 		}
 

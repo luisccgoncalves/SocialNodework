@@ -6,7 +6,7 @@
 int main(int argc, char *argv[]) {
 
 	char filename[BUFF];
-	int runs, vertices, nodeQty;
+	int runs, vertices, arestas;
 	int adjMat[MAXSIZE][MAXSIZE]={ 0 };
 	clock_t time;
 
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 	seed_rand();
 
 	time = clock();
-	file2adjMat(&adjMat, &vertices, &nodeQty, filename);
+	file2adjMat(&adjMat, &vertices, &arestas, filename);
 
 	time = clock() - time;
 
