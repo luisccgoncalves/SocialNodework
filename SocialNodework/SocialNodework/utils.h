@@ -6,8 +6,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define MAXSIZE			500
+
 int* init_dados(char *nome, int *n, int *iter);
-void file2adjMat(int *adjMat, int *vertices, char *filename);
+void file2adjMat(int adjMat[MAXSIZE][MAXSIZE], int *vertices, int *nodeQty, char *filename);
 void seed_rand();
 int random_l_h(int min, int max);
 float rand_01();

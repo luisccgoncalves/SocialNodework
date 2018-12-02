@@ -34,11 +34,11 @@ int* init_dados(char *nome, int *n, int *iter)
 	return p;
 }
 
-void file2adjMat(int adjMat[7][7], int *vertices, char *filename) {
+void file2adjMat(int adjMat[MAXSIZE][MAXSIZE], int *vertices, int *nodeQty, char *filename) {
+
 
 	FILE *f;
 	char line[100];
-	char type[2];
 	int x, y;
 	
 	f = fopen(filename, "r");
@@ -47,27 +47,23 @@ void file2adjMat(int adjMat[7][7], int *vertices, char *filename) {
 		exit(1);
 	}
 
-	for (int i = 0; i < 7; i++) {
-		for (int j = 0; j < 7; j++) {
-			printf("%d ", adjMat[i][j]);
+	while (fgets(line, sizeof line, f) != NULL) {
+
+		if (line[0] == 'p') {
+			sscanf(line, "%*s %*s %d %d", nodeQty, vertices);
+			break;
 		}
-		printf("\n");
+
 	}
 
 	while (fgets(line,sizeof line,f) != NULL) {
+
 		if (line[0] == 'e') {
-			sscanf(line, "%s %d %d", type, &x, &y);
-			adjMat[x-1][y-1] = 1;
-			adjMat[y - 1][x - 1] = 1;
+			sscanf(line, "%*s %d %d", &x, &y);
+			adjMat[x-1][y-1] = adjMat[y - 1][x - 1]=1;
+			//adjMat[y - 1][x - 1] = 1;
 
 		}
-	}
-	printf("\n");
-	for (int i = 0; i < 7; i++) {
-		for (int j = 0; j < 7; j++) {
-			printf("%d ", adjMat[i][j]);
-		}
-		printf("\n");
 	}
 
 	fclose(f);

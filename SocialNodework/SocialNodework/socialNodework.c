@@ -6,8 +6,9 @@
 int main(int argc, char *argv[]) {
 
 	char filename[BUFF];
-	int runs, vertices;
-	int adjMat[7][7]={ 0 };
+	int runs, vertices, nodeQty;
+	int adjMat[MAXSIZE][MAXSIZE]={ 0 };
+	clock_t time;
 
 	if (argc == 3) {
 		runs = atoi(argv[2]);
@@ -24,7 +25,7 @@ int main(int argc, char *argv[]) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "inst_teste.txt");
+		strcpy(filename, "brock200_1.clq");
 	}
 	else {
 		printf("USAGE: CMD runs filename\n");
@@ -33,7 +34,23 @@ int main(int argc, char *argv[]) {
 
 	seed_rand();
 
-	file2adjMat(&adjMat, &vertices, filename);
+	time = clock();
+	file2adjMat(&adjMat, &vertices, &nodeQty, filename);
+
+	time = clock() - time;
+
+	double time_taken = ((double)time) / CLOCKS_PER_SEC;
+
+	
+
+	printf("took %f seconds to execute \n", time_taken);
+
+	//for (int i = 0; i < nodeQty; i++) {
+	//	for (int j = 0; j < nodeQty; j++)
+	//		printf("%d ",adjMat[i][j]);
+	//	printf("\n");
+	//}
+
 
 	return 0;
 }
