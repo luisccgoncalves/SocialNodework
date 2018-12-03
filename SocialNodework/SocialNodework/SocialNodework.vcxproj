@@ -161,10 +161,12 @@
     <Text Include="inst_teste1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="algorithms.c" />
     <ClCompile Include="socialNodework.c" />
     <ClCompile Include="utils.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algorithms.h" />
     <ClInclude Include="socialNodework.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

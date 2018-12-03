@@ -69,6 +69,21 @@ void file2adjMat(int adjMat[MAXSIZE][MAXSIZE], int *vertices, int *arestas, char
 	fclose(f);
 }
 
+void adjMat2file(const int adjMat[MAXSIZE][MAXSIZE], int vertices, int arestas, const char *filename) {
+
+	FILE *f;
+
+	f = fopen(filename, "w");
+
+	for (int i = 0; i < vertices; i++) {
+		for (int j = 0; j < vertices; j++)
+			fprintf(f, "%d, ", adjMat[i][j]);
+		fprintf(f, "\n");
+	}
+
+	fclose(f);
+}
+
 void seed_rand() {
 	srand((unsigned int)time(NULL));
 }

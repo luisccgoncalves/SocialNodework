@@ -2,12 +2,14 @@
 
 #include "socialNodework.h"
 #include "utils.h"
+#include "algorithms.h"
 
 int main(int argc, char *argv[]) {
 
 	char filename[BUFF];
 	int runs, vertices, arestas;
 	int adjMat[MAXSIZE][MAXSIZE]={ 0 };
+	int solution[MAXSIZE] = { 0 };
 	clock_t time;
 
 	if (argc == 3) {
@@ -25,7 +27,7 @@ int main(int argc, char *argv[]) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "brock200_1.clq");
+		strcpy(filename, "inst_teste.txt");
 	}
 	else {
 		printf("USAGE: CMD runs filename\n");
@@ -37,20 +39,12 @@ int main(int argc, char *argv[]) {
 	time = clock();
 	file2adjMat(&adjMat, &vertices, &arestas, filename);
 
-	time = clock() - time;
+	//time = clock() - time;
+	//double time_taken = ((double)time) / CLOCKS_PER_SEC;
+	//printf("took %f seconds to execute \n", time_taken);
 
-	double time_taken = ((double)time) / CLOCKS_PER_SEC;
-
-	
-
-	printf("took %f seconds to execute \n", time_taken);
-
-	//for (int i = 0; i < nodeQty; i++) {
-	//	for (int j = 0; j < nodeQty; j++)
-	//		printf("%d ",adjMat[i][j]);
-	//	printf("\n");
-	//}
-
+	bruteForce(&solution, &adjMat, vertices, arestas);
+	//adjMat2file(adjMat, vertices, arestas, "mat2.txt");
 
 	return 0;
 }
