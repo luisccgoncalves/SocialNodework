@@ -8,9 +8,14 @@ int main(int argc, char *argv[]) {
 
 	char filename[BUFF];
 	int runs, vertices, arestas;
-	int adjMat[MAXSIZE][MAXSIZE]={ 0 };
-	int solution[MAXSIZE] = { 0 };
+	int *adjMat=NULL;
+	int *solution, *bestSolution;
+	float mbf;
 	clock_t time;
+	//time = clock();
+	//time = clock() - time;
+	//double time_taken = ((double)time) / CLOCKS_PER_SEC;
+	//printf("took %f seconds to execute \n", time_taken);
 
 	if (argc == 3) {
 		runs = atoi(argv[2]);
@@ -36,15 +41,28 @@ int main(int argc, char *argv[]) {
 
 	seed_rand();
 
-	time = clock();
-	file2adjMat(&adjMat, &vertices, &arestas, filename);
+	adjMat=file2adjMat(&vertices, &arestas, filename);
 
-	//time = clock() - time;
-	//double time_taken = ((double)time) / CLOCKS_PER_SEC;
-	//printf("took %f seconds to execute \n", time_taken);
+	solution = malloc(sizeof(int)*vertices);
+	bestSolution = malloc(sizeof(int)*vertices);
+	if (!solution || !bestSolution) {
+		printf("Erro de memoria!\n");
+		exit(1);
+	}
 
-	bruteForce(&solution, &adjMat, vertices, arestas);
-	//adjMat2file(adjMat, vertices, arestas, "mat2.txt");
+	for (int i = 0; i < runs; i++) {
+
+		//populateSolution();
+	}
+
+	printf("%d, ", *adjMat);
+
+	//bruteForce(solution, adjMat, vertices, arestas);
+	adjMat2file(adjMat, vertices, arestas, "mat2.txt");
+
+	free(adjMat);
+	free(solution);
+	free(bestSolution);
 
 	return 0;
 }
