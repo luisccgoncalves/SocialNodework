@@ -1,40 +1,8 @@
 #pragma warning(disable:4996)
 #include "utils.h"
 
-int* init_dados(char *nome, int *n, int *iter)
-{
-	FILE    *f;
-	int     *p, *q;
-	int     i, j;
 
-	f = fopen(nome, "r");
-	if (!f)
-	{
-		printf("Erro no acesso ao ficheiro dos dados\n");
-		exit(1);
-	}
-	// Lê o número de iteracoes
-	fscanf(f, " %d", iter);
-	// Lê o número de vértices
-	fscanf(f, " %d", n);
-	// Aloca espaço em memória para guardar a matriz de adjacências
-	p = malloc(sizeof(int)*(*n)*(*n));
-	if (!p)
-	{
-		printf("Erro na alocacao de memoria\n");
-		exit(1);
-	}
-	q = p;
-	// Preenchimento da matriz de adjacências
-	for (i = 0; i < *n; i++)
-		for (j = 0; j < *n; j++)
-			fscanf(f, " %d", q++);
-	fclose(f);
-	// Devolve a matriz de adjacências
-	return p;
-}
-
-int* file2adjMat(int *vertices, int *arestas, char *filename) {
+void file2adjMat(int **mainAdjMat, int *vertices, int *arestas, char *filename) {
 
 
 	FILE *f;
@@ -70,13 +38,6 @@ int* file2adjMat(int *vertices, int *arestas, char *filename) {
 		}
 	}
 
-	for (int i = 0; i < *vertices; i++) {
-		for (int j = 0; j < *vertices; j++) {
-			printf("%d, ",*(adjMat + (*vertices)*i+j));
-		}
-		printf("\n");
-	}
-
 	while (fgets(line,sizeof line,f) != NULL) {
 
 		if (line[0] == 'e') {
@@ -86,16 +47,9 @@ int* file2adjMat(int *vertices, int *arestas, char *filename) {
 		}
 	}
 
-	for (int i = 0; i < *vertices; i++) {
-		for (int j = 0; j < *vertices; j++) {
-			printf("%d, ", *(adjMat + (*vertices)*i+j));
-		}
-		printf("\n");
-	}
-
 	fclose(f);
 
-	return adjMat;
+	*mainAdjMat=adjMat;
 }
 
 void adjMat2file(const int *adjMat, int vertices, int arestas, const char *filename) {
@@ -107,13 +61,31 @@ void adjMat2file(const int *adjMat, int vertices, int arestas, const char *filen
 	for (int i = 0; i < vertices; i++) {
 		for (int j = 0; j < vertices; j++) {
 			fprintf(f, "%d, ", *(adjMat + (vertices)*i + j));
-			printf("%d, ", *(adjMat + (vertices)*i + j));
+			//printf("%d, ", *(adjMat + (vertices)*i + j));
 		}
 		fprintf(f, "\n");
-		printf("\n");
+		//printf("\n");
 	}
 
 	fclose(f);
+}
+
+void populateSolution(int *solution, int vertices) {
+
+	for (int i = 0; i < vertices; i++) {
+		*(solution + i) = flipCoin();
+	}
+}
+
+void printSolution(int *solution, int vertices) {
+
+	int i;
+
+	printf("Conjunto: ");
+	for (int i = 0; i < vertices; i++)
+		if (solution[i])
+			printf("%2d  ", i+1);
+	printf("\n");
 }
 
 void seed_rand() {
@@ -133,4 +105,34 @@ int random_l_h(int min, int max)
 float rand_01()
 {
 	return ((float)rand()) / RAND_MAX;
+}
+
+int flipCoin() {
+	return rand() % 2;
+}
+
+// Calcula a qualidade de uma solução
+// Parâmetros de entrada: Solução actual, a, Matriz de adjacências, mat, Número de vértices, vert
+// Parâmetros de saída: Custo, total - Neste caso, é o número de ligações que existem entre os vértices do grupo
+int calcula_fit(int a[], int *mat, int vert)
+{
+	int total = 0;
+	int i, j;
+
+	for (i = 0; i < vert; i++)
+		if (a[i]){
+			for (j = 0; j < vert; j++)
+				if (a[j] && *(mat + i * vert + j))
+					total++;
+		}
+	return -total;
+}
+
+// copia vector b para a (tamanho n)
+// Parâmetros de entrada: Solução que será substituída, a, Solução que irá substituir, b, Número de vertices, n
+void substitui(int a[], int b[], int n)
+{
+	int i;
+	for (i = 0; i < n; i++)
+		a[i] = b[i];
 }

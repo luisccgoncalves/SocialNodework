@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
 
 	char filename[BUFF];
-	int runs, vertices, arestas;
+	int runs, vertices, arestas, custo;
 	int *adjMat=NULL;
 	int *solution, *bestSolution;
 	float mbf;
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 
 	seed_rand();
 
-	adjMat=file2adjMat(&vertices, &arestas, filename);
+	file2adjMat(&adjMat, &vertices, &arestas, filename);
 
 	solution = malloc(sizeof(int)*vertices);
 	bestSolution = malloc(sizeof(int)*vertices);
@@ -52,10 +52,17 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < runs; i++) {
 
-		//populateSolution();
+		populateSolution(solution, vertices);
+		printSolution(solution, vertices);
+
+		custo = trepa_colinas(solution, adjMat, vertices, MAX_ITERATIONS);
+
+
+		printf("Repeticao %d:", i);
+		printSolution(solution, vertices);
+		printf("Custo final: %2d\n\n", custo);
 	}
 
-	printf("%d, ", *adjMat);
 
 	//bruteForce(solution, adjMat, vertices, arestas);
 	adjMat2file(adjMat, vertices, arestas, "mat2.txt");

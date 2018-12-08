@@ -7,5 +7,6 @@
 
 #define BUFF			100
 #define DEFAULT_RUNS	10
+#define MAX_ITERATIONS	100
 
 #endif
