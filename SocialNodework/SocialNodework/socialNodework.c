@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "inst_teste.txt");
+		strcpy(filename, "c-fat500-1.clq");
 		strcat(fileAddr, filename);
 	}
 	else {
@@ -84,22 +84,18 @@ int main(int argc, char *argv[]) {
 	printf("Qualidade: %d\n", bestCusto);
 	printf("Tempo de execucao: %.3f seg\n", timeTaken);
 
-	for (int i = 0; i < runs; i++) {
-		printf("%d, ", *(custoStorage + i));
-	}
-	printf("\n");
-	printf("\n");
+	createCSV(	runs, 
+				MAX_ITERATIONS, 
+				vertices,
+				mbf, 
+				bestCusto, 
+				timeTaken, 
+				solutionStorage,
+				custoStorage,
+				filename, 
+				OUTPUT_DIR);
 
-	for (int i = 0; i < runs; i++) {
-		for (int j = 0; j < vertices; j++) {
-			if(*(solutionStorage + i*vertices + j))
-				printf("%d, ", j+1);
-		}
-		printf("\n");
-	}
-
-	createCSV(runs, MAX_ITERATIONS, vertices, mbf, bestCusto, timeTaken, filename, OUTPUT_DIR);
-	adjMat2file(adjMat, vertices, arestas, "mat2.txt");
+	//adjMat2file(adjMat, vertices, arestas, "mat2.txt");
 
 	free(adjMat);
 	free(solution);
