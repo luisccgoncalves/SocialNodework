@@ -7,15 +7,11 @@
 int main(int argc, char *argv[]) {
 
 	char filename[BUFF];
-	int runs, vertices, arestas, custo;
+	int runs, vertices, arestas, custo, bestCusto;
 	int *adjMat=NULL;
 	int *solution, *bestSolution;
 	float mbf=0;
 	clock_t time;
-	//time = clock();
-	//time = clock() - time;
-	//double time_taken = ((double)time) / CLOCKS_PER_SEC;
-	//printf("took %f seconds to execute \n", time_taken);
 
 	if (argc == 3) {
 		runs = atoi(argv[2]);
@@ -39,6 +35,8 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
+	time = clock(); //Começa a contar o tempo a partir daqui
+
 	seed_rand();
 
 	file2adjMat(&adjMat, &vertices, &arestas, filename);
@@ -53,21 +51,32 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < runs; i++) {
 
 		populateSolution(solution, vertices);
-		//printSolution(solution, vertices);
 
 		custo = trepa_colinas(solution, adjMat, vertices, MAX_ITERATIONS);
 
-
-		printf("Repeticao %d:", i);
+		printf("Repeticao %d:\n", i+1);
 		printSolution(solution, vertices);
 		printf("Qualidade: %2d\n\n", custo);
 
 		mbf += custo;
+
+		if (i == 0 || bestCusto < custo) {
+			bestCusto = custo;
+			memcpy(bestSolution, solution, sizeof(int)*vertices);
+		}
 	}
 
-	printf("\nMBF: %f", mbf / runs);
+	mbf = mbf / runs;
 
-	//bruteForce(solution, adjMat, vertices, arestas);
+	double timeTaken = ((double)(clock() - time)) / CLOCKS_PER_SEC; //Para de contar o tempo aqui
+
+	printf("\nMBF: %.3f", mbf);
+	printf("\nMelhor solucao: ");
+	printSolution(bestSolution, vertices);
+	printf("Qualidade: %d\n", bestCusto);
+	printf("Tempo de execucao: %.3f seg\n", timeTaken);
+
+	createCSV();
 	adjMat2file(adjMat, vertices, arestas, "mat2.txt");
 
 	free(adjMat);

@@ -15,5 +15,5 @@ int random_l_h(int min, int max);
 float rand_01();
 int flipCoin();
 int calcula_fit(int a[], int *mat, int vert);
-void substitui(int a[], int b[], int n);
+void createCSV();
 #endif

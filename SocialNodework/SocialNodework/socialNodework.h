@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #define BUFF			100
-#define DEFAULT_RUNS	10
+#define DEFAULT_RUNS	20
 #define MAX_ITERATIONS	3000
 
 #endif
