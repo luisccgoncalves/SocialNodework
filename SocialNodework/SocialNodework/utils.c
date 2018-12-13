@@ -81,7 +81,6 @@ void printSolution(int *solution, int vertices) {
 
 	int i;
 
-	printf("Conjunto: ");
 	for (int i = 0; i < vertices; i++)
 		if (solution[i])
 			printf("%2d  ", i+1);
@@ -116,16 +115,22 @@ int flipCoin() {
 // Parâmetros de saída: Custo, total - Neste caso, é o número de ligações que existem entre os vértices do grupo
 int calcula_fit(int a[], int *mat, int vert)
 {
-	int total = 0;
+	int colisao = 0, total=0;
 	int i, j;
 
-	for (i = 0; i < vert; i++)
-		if (a[i]){
+	for (i = 0; i < vert; i++) {
+		if (a[i]) {
+			total++;
 			for (j = 0; j < vert; j++)
 				if (a[j] && *(mat + i * vert + j))
-					total++;
+					colisao++;
 		}
-	return -total;
+	}
+
+	if (colisao == 0)
+		return total;
+	else
+		return -colisao;
 }
 
 // copia vector b para a (tamanho n)

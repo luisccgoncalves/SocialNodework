@@ -29,16 +29,35 @@
 
 // Gera um vizinho à distância 1 (troca um vértice de cada grupo)
 // Parâmetros de entrada: Solução actual, a, Solução vizinha, b, Número de vértices, n
-void gera_vizinho(int a[], int b[], int n)
-{
-	int i;
+void gera_vizinho(int a[], int b[], int n, int viz){
 
+	int i, j;
 	// Copia a solução atual para a solução vizinha
 	for (i = 0; i < n; i++)
 		b[i] = a[i];
 
-	i = random_l_h(0, n-1);
-	b[i] = !b[i];
+	if (viz > n)
+		viz = n;
+
+	int *vizMat = malloc((sizeof (int))*viz);
+	for (i = 0; i < viz; i++) {
+
+		while (1) {
+			vizMat[i] = random_l_h(0, n - 1);
+			for (j = 0; j < i; j++)
+				if (vizMat[i] == vizMat[j])
+					break;
+			if (j == i)
+				break;
+		} 
+	}
+
+
+	for (i = 0; i < viz; i++) {
+		b[vizMat[i]] = !b[vizMat[i]];
+	}
+
+	free(vizMat);
 }
 
 // Trepa colinas first-choice
@@ -60,7 +79,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 	custo = calcula_fit(sol, mat, vert);		//==============================>>>>
 	for (i = 0; i < num_iter; i++){
 		// Gera solução vizinha
-		gera_vizinho(sol, nova_sol, vert);		//==============================>>>>>
+		gera_vizinho(sol, nova_sol, vert, 2);		//==============================>>>>>
 		//printSolution(nova_sol, vert);
 		custo_viz = calcula_fit(nova_sol, mat, vert);
 		if (custo_viz > custo){
@@ -69,8 +88,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 		}
 	}
 	// Liberta a memória usada para guardar a nova solução
-	static int teste = 0;
-	printf("vou libertar mem %d\n", teste++);
+
 	free(nova_sol);
 	// Devolve o custo da melhor solução encontrada
 	return custo;

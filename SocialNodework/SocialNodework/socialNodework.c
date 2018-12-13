@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 	int runs, vertices, arestas, custo;
 	int *adjMat=NULL;
 	int *solution, *bestSolution;
-	float mbf;
+	float mbf=0;
 	clock_t time;
 	//time = clock();
 	//time = clock() - time;
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "inst_teste.txt");
+		strcpy(filename, "c-fat500-1.clq");
 	}
 	else {
 		printf("USAGE: CMD runs filename\n");
@@ -53,16 +53,19 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < runs; i++) {
 
 		populateSolution(solution, vertices);
-		printSolution(solution, vertices);
+		//printSolution(solution, vertices);
 
 		custo = trepa_colinas(solution, adjMat, vertices, MAX_ITERATIONS);
 
 
 		printf("Repeticao %d:", i);
 		printSolution(solution, vertices);
-		printf("Custo final: %2d\n\n", custo);
+		printf("Qualidade: %2d\n\n", custo);
+
+		mbf += custo;
 	}
 
+	printf("\nMBF: %f", mbf / runs);
 
 	//bruteForce(solution, adjMat, vertices, arestas);
 	adjMat2file(adjMat, vertices, arestas, "mat2.txt");
