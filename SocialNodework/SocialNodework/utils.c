@@ -57,6 +57,10 @@ void adjMat2file(const int *adjMat, int vertices, int arestas, const char *filen
 	FILE *f;
 
 	f = fopen(filename, "w");
+	if (!f) {
+		printf("Erro no acesso ao ficheiro\n");
+		exit(1);
+	}
 
 	for (int i = 0; i < vertices; i++) {
 		for (int j = 0; j < vertices; j++) {
@@ -129,15 +133,28 @@ int calcula_fit(int a[], int *mat, int vert)
 		return -colisao;	//Se houverem penaliza a qualidade. (MAIS colisões == MENOS qualidade)
 }
 
-void createCSV() {
+void createCSV(int runs, int maxIterations, int vertices, float mbf, int bestCusto, double timeTaken, const char *filename, char *outputDir) {
 
-	FILE * fCSV = fopen("batatas.csv", "w");
+	char newFilename[100];
+	strcpy(newFilename, outputDir);
+	strcat(newFilename, filename);
+
+
+	FILE * fCSV = fopen(strcat(strtok(newFilename,"."),".csv"), "w");	//cria um CSV com o nome do clq ou txt
 	if (!fCSV) {
-		printf("Erro no acesso ao ficheiro dos dados\n");
+		printf("Erro no acesso ao ficheiro CSV\n");
 		exit(1);
 	}
 
-	fprintf(fCSV, "EU;GOSTO;DE;BATATAS");
+	time_t rawtime;
+	struct tm *info;
+	time(&rawtime);
+	info = localtime(&rawtime);
+
+	fprintf(fCSV, "DATA:;%s\n", asctime(info));
+	fprintf(fCSV, "Ficheiro:;%s\n", filename);
+	fprintf(fCSV, "Tembo decorrido:;%.3f\n", timeTaken);
+
 
 	fclose(fCSV);
 }

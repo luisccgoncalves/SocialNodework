@@ -7,6 +7,7 @@
 int main(int argc, char *argv[]) {
 
 	char filename[BUFF];
+	char fileAddr[BUFF] = DATA_DIR;
 	int runs, vertices, arestas, custo, bestCusto;
 	int *adjMat=NULL;
 	int *solution, *bestSolution;
@@ -18,17 +19,18 @@ int main(int argc, char *argv[]) {
 
 		if (runs<1)
 			return 0;
-		strcpy(filename, argv[1]);
+		strcat(fileAddr, argv[1]);
 	}
 	else if (argc == 2) {
 		runs = DEFAULT_RUNS;
-		strcpy(filename, argv[1]);
+		strcat(fileAddr, argv[1]);
 	}
 	else if (argc == 1) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "c-fat500-1.clq");
+		strcpy(filename, "inst_teste.txt");
+		strcat(fileAddr, filename);
 	}
 	else {
 		printf("USAGE: CMD runs filename\n");
@@ -39,7 +41,7 @@ int main(int argc, char *argv[]) {
 
 	seed_rand();
 
-	file2adjMat(&adjMat, &vertices, &arestas, filename);
+	file2adjMat(&adjMat, &vertices, &arestas, fileAddr);
 
 	solution = malloc(sizeof(int)*vertices);
 	bestSolution = malloc(sizeof(int)*vertices);
@@ -76,7 +78,7 @@ int main(int argc, char *argv[]) {
 	printf("Qualidade: %d\n", bestCusto);
 	printf("Tempo de execucao: %.3f seg\n", timeTaken);
 
-	createCSV();
+	createCSV(runs, MAX_ITERATIONS, vertices, mbf, bestCusto, timeTaken, filename, OUTPUT_DIR);
 	adjMat2file(adjMat, vertices, arestas, "mat2.txt");
 
 	free(adjMat);

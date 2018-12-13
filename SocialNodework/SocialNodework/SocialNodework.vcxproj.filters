@@ -18,52 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="brock200_1.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="brock200_2.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="brock200_3.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="c-fat200-1.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="c-fat200-2.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="c-fat200-5.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="c-fat500-1.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="hamming6-2.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="hamming6-4.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="johnson8-2-4.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="johnson8-4-4.clq">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="johnson16-2-4.clq">
-      <Filter>Data</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="inst_teste.txt">
-      <Filter>Data</Filter>
-    </Text>
-    <Text Include="inst_teste1.txt">
-      <Filter>Data</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="socialNodework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,5 +38,51 @@
     <ClCompile Include="algorithms.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\brock200_1.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\brock200_2.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\brock200_3.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat200-1.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat200-2.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat200-5.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat500-1.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\hamming6-2.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\hamming6-4.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\johnson8-2-4.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\johnson8-4-4.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\johnson16-2-4.clq">
+      <Filter>Data</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Data\inst_teste.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="Data\inst_teste1.txt">
+      <Filter>Data</Filter>
+    </Text>
   </ItemGroup>
 </Project>
