@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
 	int runs, vertices, arestas, custo, bestCusto;
 	int *adjMat=NULL;
 	int *solution, *bestSolution;
+	int *solutionStorage, *custoStorage;
 	float mbf=0;
 	clock_t time;
 
@@ -45,7 +46,9 @@ int main(int argc, char *argv[]) {
 
 	solution = malloc(sizeof(int)*vertices);
 	bestSolution = malloc(sizeof(int)*vertices);
-	if (!solution || !bestSolution) {
+	solutionStorage = malloc(sizeof(int)*vertices*runs);
+	custoStorage = malloc(sizeof(int)*runs);
+	if (!solution || !bestSolution || !solutionStorage || !custoStorage) {
 		printf("Erro de memoria!\n");
 		exit(1);
 	}
@@ -59,6 +62,9 @@ int main(int argc, char *argv[]) {
 		printf("Repeticao %d:\n", i+1);
 		printSolution(solution, vertices);
 		printf("Qualidade: %2d\n\n", custo);
+
+		memcpy(solutionStorage + vertices*i, solution, sizeof(int)*vertices);
+		*(custoStorage + i) = custo;
 
 		mbf += custo;
 
@@ -77,6 +83,20 @@ int main(int argc, char *argv[]) {
 	printSolution(bestSolution, vertices);
 	printf("Qualidade: %d\n", bestCusto);
 	printf("Tempo de execucao: %.3f seg\n", timeTaken);
+
+	for (int i = 0; i < runs; i++) {
+		printf("%d, ", *(custoStorage + i));
+	}
+	printf("\n");
+	printf("\n");
+
+	for (int i = 0; i < runs; i++) {
+		for (int j = 0; j < vertices; j++) {
+			if(*(solutionStorage + i*vertices + j))
+				printf("%d, ", j+1);
+		}
+		printf("\n");
+	}
 
 	createCSV(runs, MAX_ITERATIONS, vertices, mbf, bestCusto, timeTaken, filename, OUTPUT_DIR);
 	adjMat2file(adjMat, vertices, arestas, "mat2.txt");

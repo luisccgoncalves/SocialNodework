@@ -133,7 +133,15 @@ int calcula_fit(int a[], int *mat, int vert)
 		return -colisao;	//Se houverem penaliza a qualidade. (MAIS colisões == MENOS qualidade)
 }
 
-void createCSV(int runs, int maxIterations, int vertices, float mbf, int bestCusto, double timeTaken, const char *filename, char *outputDir) {
+void createCSV(	int runs, 
+				int maxIterations, 
+				int vertices, 
+				float mbf, 
+				int bestCusto, 
+				double timeTaken, 
+				const char *filename, 
+				char *outputDir
+	) {
 
 	char newFilename[100];
 	strcpy(newFilename, outputDir);
@@ -154,6 +162,10 @@ void createCSV(int runs, int maxIterations, int vertices, float mbf, int bestCus
 	fprintf(fCSV, "DATA:;%s\n", asctime(info));
 	fprintf(fCSV, "Ficheiro:;%s\n", filename);
 	fprintf(fCSV, "Tembo decorrido:;%.3f\n", timeTaken);
+	fprintf(fCSV, "Runs:; %d\n", runs);
+	fprintf(fCSV, "Iteracoes:;%d\n", maxIterations);
+	fprintf(fCSV, "MBF:; %.3f\n", mbf);
+	fprintf(fCSV, "Melhor solucao:; %d\n", bestCusto);
 
 
 	fclose(fCSV);
