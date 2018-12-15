@@ -143,7 +143,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algoritmo.c" />
+    <ClCompile Include="funcao.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="algoritmo.h" />
+    <ClInclude Include="funcao.h" />
+    <ClInclude Include="utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\brock200_1.clq" />
+    <None Include="Data\brock200_2.clq" />
+    <None Include="Data\brock200_3.clq" />
+    <None Include="Data\c-fat200-1.clq" />
+    <None Include="Data\c-fat200-2.clq" />
+    <None Include="Data\c-fat200-5.clq" />
+    <None Include="Data\c-fat500-1.clq" />
+    <None Include="Data\hamming6-2.clq" />
+    <None Include="Data\hamming6-4.clq" />
+    <None Include="Data\johnson16-2-4.clq" />
+    <None Include="Data\johnson8-2-4.clq" />
+    <None Include="Data\johnson8-4-4.clq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Data\inst_teste.txt" />
+    <Text Include="Data\inst_teste1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

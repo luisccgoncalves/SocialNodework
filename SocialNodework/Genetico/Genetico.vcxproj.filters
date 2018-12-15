@@ -13,10 +13,79 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{14d93ebe-3ac8-495c-936c-744bc269946a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="algoritmo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcao.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="algoritmo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="funcao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\johnson16-2-4.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\brock200_1.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\brock200_2.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\brock200_3.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat200-1.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat200-2.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat200-5.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\c-fat500-1.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\hamming6-2.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\hamming6-4.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\johnson8-2-4.clq">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="Data\johnson8-4-4.clq">
+      <Filter>Data</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Data\inst_teste.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="Data\inst_teste1.txt">
+      <Filter>Data</Filter>
+    </Text>
   </ItemGroup>
 </Project>

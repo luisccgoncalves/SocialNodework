@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 		{
 			runs = DEFAULT_RUNS;
 			printf("Nome do Ficheiro: ");
-			gets(nome_fich);
+			scanf("%49[^\n]s", &nome_fich);
 		}
 	// Se o número de execuções do processo for menor ou igual a 0, termina o programa
 	if (runs <= 0)
@@ -70,9 +70,7 @@ int main(int argc, char *argv[])
 		{
 			// Torneio binário para encontrar os progenitores (ficam armazenados no vector parents)
 			tournament(pop, EA_param, parents);
-			// Torneio de k elementos, com k >= 2, para encontrar os progenitores (ficam armazenados no vector parents)
-			// Exercício 4.5
-//            tournament_geral(pop, EA_param, parents);
+
 			// Aplica os operadores genéticos aos pais (os descendentes ficam armazenados na estrutura pop)
 			genetic_operators(parents, EA_param, pop);
 			// Avalia a nova população (a dos filhos)
