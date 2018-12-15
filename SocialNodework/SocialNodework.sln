@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SocialNodework", "SocialNodework\SocialNodework.vcxproj", "{9FB39D8E-17A8-4100-BE38-568B7A3E3E2D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrepaColinas", "SocialNodework\SocialNodework.vcxproj", "{9FB39D8E-17A8-4100-BE38-568B7A3E3E2D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Genetico", "Genetico\Genetico.vcxproj", "{70698D1A-0342-427A-B1FA-D37777895892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{9FB39D8E-17A8-4100-BE38-568B7A3E3E2D}.Release|x64.Build.0 = Release|x64
 		{9FB39D8E-17A8-4100-BE38-568B7A3E3E2D}.Release|x86.ActiveCfg = Release|Win32
 		{9FB39D8E-17A8-4100-BE38-568B7A3E3E2D}.Release|x86.Build.0 = Release|Win32
+		{70698D1A-0342-427A-B1FA-D37777895892}.Debug|x64.ActiveCfg = Debug|x64
+		{70698D1A-0342-427A-B1FA-D37777895892}.Debug|x64.Build.0 = Debug|x64
+		{70698D1A-0342-427A-B1FA-D37777895892}.Debug|x86.ActiveCfg = Debug|Win32
+		{70698D1A-0342-427A-B1FA-D37777895892}.Debug|x86.Build.0 = Debug|Win32
+		{70698D1A-0342-427A-B1FA-D37777895892}.Release|x64.ActiveCfg = Release|x64
+		{70698D1A-0342-427A-B1FA-D37777895892}.Release|x64.Build.0 = Release|x64
+		{70698D1A-0342-427A-B1FA-D37777895892}.Release|x86.ActiveCfg = Release|Win32
+		{70698D1A-0342-427A-B1FA-D37777895892}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
