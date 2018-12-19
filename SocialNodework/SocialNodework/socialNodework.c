@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "c-fat500-1.clq");
+		strcpy(filename, "brock200_1.clq");
 		strcat(fileAddr, filename);
 	}
 	else {

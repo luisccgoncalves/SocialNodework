@@ -14,11 +14,12 @@ void init_rand()
 // Leitura dos parâmetros e dos dados do problema
 // Parâmetros de entrada: Nome do ficheiro e matriz a preencher com os dados dos objectos (peso e valor)
 // Parâmetros de saída: Devolve a estrutura com os parâmetros
-struct info init_data(char *filename, int mat[][2])
+struct info init_data(char *filename, int **mainMat)
 {
-	struct  info x;
+	struct  info inf;
 	FILE    *f;
-	int     i;
+	int     *mat, x, y;
+	char	line[100];
 
 	f = fopen(filename, "rt");
 	if (!f)
@@ -27,26 +28,56 @@ struct info init_data(char *filename, int mat[][2])
 		exit(1);
 	}
 	// Leitura dos parâmetros do problema
-	fscanf(f, " pop: %d", &x.popsize);
-	fscanf(f, " pm: %f", &x.pm);
-	fscanf(f, " pr: %f", &x.pr);
-	fscanf(f, " tsize: %d", &x.tsize);
-	fscanf(f, " max_gen: %d", &x.numGenerations);
-	fscanf(f, " obj: %d", &x.numGenes);
-	fscanf(f, " cap: %d", &x.capacity);
-	if (x.numGenes > MAX_OBJ)
+	//fscanf(f, " pop: %d", &x.popsize);
+	//fscanf(f, " pm: %f", &x.pm);
+	//fscanf(f, " pr: %f", &x.pr);
+	//fscanf(f, " tsize: %d", &x.tsize);
+	//fscanf(f, " max_gen: %d", &x.numGenerations);
+	//fscanf(f, " obj: %d", &x.numGenes);
+	//fscanf(f, " cap: %d", &x.capacity);
+
+	//Vai lendo linhas e descartando-as, se a linha começar por p, grava os vertices e arestas e sai do ciclo
+	while (fgets(line, sizeof line, f) != NULL) {
+
+		if (line[0] == 'p') {
+			sscanf(line, "%*s %*s %d %d", &inf.numGenes, &inf.arestas);
+			break;
+		}
+
+	}
+	
+	if (inf.numGenes > MAX_OBJ)
 	{
-		printf("Number of itens is superior to MAX_OBJ\n");
+		printf("Number of vertices is superior to MAX_OBJ\n");
 		exit(1);
 	}
-	x.ro = 0.0;
-	// Leitura dos dados do KSP (peso e lucro)
-	fscanf(f, " Weight Profit"); \
-		for (i = 0; i < x.numGenes; i++)
-			fscanf(f, " %d %d", &mat[i][0], &mat[i][1]);
+
+	//Inicia outros valores
+	inf.ro = 0.0;
+	inf.popsize = inf.numGenes;
+
+	mat= malloc(sizeof(int)*(inf.numGenes)*(inf.numGenes));
+	if (!mat) {
+		printf("Erro de memoria!\n");
+		exit(1);
+	}
+
+	memset(mat, 0, sizeof(int)*(inf.numGenes)*(inf.numGenes));
+
+	while (fgets(line, sizeof line, f) != NULL) {
+
+		if (line[0] == 'e') {
+			sscanf(line, "%*s %d %d", &x, &y);
+			*(mat + (inf.numGenes)*(y - 1) + (x - 1)) = 1;
+			*(mat + (inf.numGenes)*(x - 1) + (y - 1)) = 1;
+		}
+	}
+
+	*mainMat = mat;
+
 	fclose(f);
 	// Devolve a estrutura com os parâmetros
-	return x;
+	return inf;
 }
 
 // Simula o lançamento de uma moeda, retornando o valor 0 ou 1

@@ -19,6 +19,8 @@ struct info
 	int     capacity;
 	// Número de gerações
 	int     numGenerations;
+
+	int		arestas;
 };
 
 // Individuo (solução)

@@ -7,35 +7,38 @@
 #include "utils.h"
 
 #define DEFAULT_RUNS	10
+#define DATA_DIR		"Data/"
+#define OUTPUT_DIR		"Output/"
 
 int main(int argc, char *argv[])
 {
-	char        nome_fich[100];
+	char        nome_fich[100] = DATA_DIR;
 	struct info EA_param;
 	pchrom      pop = NULL, parents = NULL;
 	chrom       best_run, best_ever;
-	int         gen_actual, r, runs, i, inv, mat[MAX_OBJ][2];
+	int         gen_actual, r, runs, i, inv, *mat;
 	float       mbf = 0.0;
 
 	// Lê os argumentos de entrada
 	if (argc == 3)
 	{
 		runs = atoi(argv[2]);
-		strcpy(nome_fich, argv[1]);
+		strcat(nome_fich, argv[1]);
 	}
 	else
 		// Se o número de execuções do processo não for colocado nos argumentos de entrada, define-o com um valor por defeito
 		if (argc == 2)
 		{
 			runs = DEFAULT_RUNS;
-			strcpy(nome_fich, argv[1]);
+			strcat(nome_fich, argv[1]);
 		}
 	// Se o nome do ficheiro de informações não for colocado nos argumentos de entrada, pede-o novamente
 		else
 		{
 			runs = DEFAULT_RUNS;
-			printf("Nome do Ficheiro: ");
-			scanf("%49[^\n]s", &nome_fich);
+			//printf("Nome do Ficheiro: ");
+			//scanf("%49[^\n]s", &nome_fich);
+			strcat(nome_fich, "brock200_1.clq");
 		}
 	// Se o número de execuções do processo for menor ou igual a 0, termina o programa
 	if (runs <= 0)
@@ -43,7 +46,7 @@ int main(int argc, char *argv[])
 	//Inicializa a geração dos números aleatórios
 	init_rand();
 	// Preenche a matriz com dados dos objectos (peso e valor) e a estrutura EA_param que foram definidos no ficheiro de input
-	EA_param = init_data(nome_fich, mat);
+	EA_param = init_data(nome_fich, &mat);
 	// Faz um ciclo com o número de execuções definidas
 	for (r = 0; r < runs; r++)
 	{

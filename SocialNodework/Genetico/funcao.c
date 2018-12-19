@@ -164,7 +164,7 @@ float eval_individual_reparado2(int sol[], struct info d, int mat[][2], int *v)
 // Avaliacao da população
 // Parâmetros de entrada: populacao (pop), estrutura com parametros (d) e matriz com dados do problema (mat)
 // Parâmetros de saída: Preenche pop com os valores de fitness e de validade para cada solução
-void evaluate(pchrom pop, struct info d, int mat[][2])
+void evaluate(pchrom pop, struct info d, int *mat)
 {
 
 	for (int i = 0; i < d.popsize; i++)
