@@ -3,41 +3,34 @@
 #include "funcao.h"
 #include "utils.h"
 
-#define GENERATIONS_TC  100
-#define PROBGERAVIZ     1.0
+#define GENERATIONS_TC  1000
+#define PROBGERAVIZ     0.0
 
 // Calcula a qualidade de uma solução
 // Parâmetros de entrada: solução (sol), capacidade da mochila (d), matriz com dados do problema (mat) e numero de objectos (v)
 // Parâmetros de saída: qualidade da solução (se a capacidade for excedida devolve 0)
-float eval_individual(int sol[], struct info d, int mat[][2], int *v)
-{
-	int     i;
-	float   sum_weight, sum_profit;
+float eval_individual(int sol[], struct info d, int *mat, int *v)
+{//codigo da ficha 7 eval individual mudar 0 para 1 no 1º for
+	//se for inválida, aplicar a reparação
 
-	sum_weight = sum_profit = 0;
-	// Percorre todos os objectos
-	for (i = 0; i < d.numGenes; i++)
-	{
-		// Verifica se o objecto i esta na mochila
-		if (sol[i] == 1)
-		{
-			// Actualiza o peso total
-			sum_weight += mat[i][0];
-			// Actualiza o lucro total
-			sum_profit += mat[i][1];
+	int total = 0, colisao = 0;
+
+	for (int i = 0; i < d.numGenes; i++) {
+		if (sol[i]) {
+			total++;					//Conta 1 nó na solução
+			for (int j = 0; j < d.numGenes; j++)
+				if (sol[j] && *(mat + i * d.numGenes + j))
+					colisao++;			//Se o nó tiver uma colisão com outro membro da solução, conta uma colisão
 		}
 	}
-	if (sum_weight > d.capacity)
-	{
-		// Solução inválida
-		*v = 0;
-		return 0;
-	}
-	else
-	{
-		// Solução válida
+
+	if (colisao == 0) {
 		*v = 1;
-		return sum_profit;
+		return total;		//Se não houverem colisões, é uma solução válida e devolve o nº de nós do grupo
+	}
+	else {
+		*v = 0;
+		return -colisao;	//Se houverem penaliza a qualidade.
 	}
 }
 

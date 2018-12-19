@@ -1,1 +1,1 @@
-void evaluate(pchrom, struct info, int mat[][2]);
+void evaluate(pchrom, struct info, int *mat);

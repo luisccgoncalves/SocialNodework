@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 			runs = DEFAULT_RUNS;
 			//printf("Nome do Ficheiro: ");
 			//scanf("%49[^\n]s", &nome_fich);
-			strcat(nome_fich, "brock200_1.clq");
+			strcat(nome_fich, "inst_teste.txt");
 		}
 	// Se o número de execuções do processo for menor ou igual a 0, termina o programa
 	if (runs <= 0)

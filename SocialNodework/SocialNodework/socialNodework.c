@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "brock200_1.clq");
+		strcpy(filename, "hamming6-4.clq");
 		strcat(fileAddr, filename);
 	}
 	else {
@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
 				filename, 
 				OUTPUT_DIR);
 
-	//adjMat2file(adjMat, vertices, arestas, "mat2.txt");
+	adjMat2file(adjMat, vertices, arestas, "mat2.txt");
 
 	free(adjMat);
 	free(solution);
