@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
 	EA_param.pm=0.01;
 	EA_param.pr=0.3;
 	EA_param.tsize=2;
-	EA_param.ro=0;
 	EA_param.numGenerations=10000;
 
 	// Faz um ciclo com o número de execuções definidas

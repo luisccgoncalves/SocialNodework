@@ -3,9 +3,6 @@
 #include "funcao.h"
 #include "utils.h"
 
-// Calcula a qualidade de uma solução
-// Parâmetros de entrada: solução (sol), capacidade da mochila (d), matriz com dados do problema (mat) e numero de objectos (v)
-// Parâmetros de saída: qualidade da solução (se a capacidade for excedida devolve 0)
 float eval_individual(int sol[], struct info d, int *mat, int *v){
 
 	int total = 0, colisao = 0;
@@ -29,12 +26,37 @@ float eval_individual(int sol[], struct info d, int *mat, int *v){
 	}
 }
 
+void repara(int sol[], int max, int *mat) {
+	
+	int maxcount, index;
+	int count = index = maxcount = 0;
+
+	for (int i = 0; i < max; i++) {
+		if (sol[i]) {
+			for (int j = 0; j < max; j++)
+				count += *(mat + i * max + j);
+			if (count > maxcount) {
+				maxcount = count;
+				index = i;
+			}
+		}
+	}
+	sol[index] = 0;
+}
+
 // Avaliacao da população
 // Parâmetros de entrada: populacao (pop), estrutura com parametros (d) e matriz com dados do problema (mat)
 // Parâmetros de saída: Preenche pop com os valores de fitness e de validade para cada solução
-void evaluate(pchrom pop, struct info d, int *mat)
-{
+void evaluate(pchrom pop, struct info d, int *mat){
 
-	for (int i = 0; i < d.popsize; i++)
-		pop[i].fitness = eval_individual(pop[i].p, d, mat, &pop[i].valido);
+	int rep = 1;
+
+	for (int i = 0; i < d.popsize; i++) {
+
+		do {
+			pop[i].fitness = eval_individual(pop[i].p, d, mat, &pop[i].valido);
+			if (pop[i].valido == 0 && rep)
+				repara(pop[i].p, d.numGenes, mat);
+		} while (pop[i].valido == 0 && rep);
+	}
 }
