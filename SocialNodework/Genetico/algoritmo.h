@@ -15,12 +15,8 @@ struct info
 	float   ro;
 	// Número de objetos que se podem colocar na mochila
 	int     numGenes;
-	// Capacidade da mochila
-	int     capacity;
 	// Número de gerações
 	int     numGenerations;
-
-	int		arestas;
 };
 
 // Individuo (solução)

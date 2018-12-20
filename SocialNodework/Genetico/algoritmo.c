@@ -82,7 +82,7 @@ void crossover(pchrom parents, struct info d, pchrom offspring)
 {
 	int i, j, point;
 
-	for (i = 0; i < d.popsize; i += 2)
+	for (i = 0; i < d.popsize-(d.popsize%2); i += 2)
 	{
 		if (rand_01() < d.pr)
 		{

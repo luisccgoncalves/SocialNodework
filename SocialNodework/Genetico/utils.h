@@ -1,4 +1,4 @@
-struct info init_data(char *, int *mainMat);
+struct info init_data(char *, int **mainMat);
 
 pchrom init_pop(struct info);
 

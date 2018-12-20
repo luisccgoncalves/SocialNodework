@@ -47,10 +47,17 @@ int main(int argc, char *argv[])
 	init_rand();
 	// Preenche a matriz com dados dos objectos (peso e valor) e a estrutura EA_param que foram definidos no ficheiro de input
 	EA_param = init_data(nome_fich, &mat);
+
+	EA_param.pm=0.01;
+	EA_param.pr=0.3;
+	EA_param.tsize=2;
+	EA_param.ro=0;
+	EA_param.numGenerations=10000;
+
 	// Faz um ciclo com o número de execuções definidas
 	for (r = 0; r < runs; r++)
 	{
-		printf("Repeticao %d\n", r + 1);
+		//printf("Repeticao %d\n", r + 1);
 		// Geração da população inicial
 		pop = init_pop(EA_param);
 		// Avalia a população inicial

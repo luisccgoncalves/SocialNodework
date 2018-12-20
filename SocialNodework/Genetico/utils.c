@@ -27,20 +27,13 @@ struct info init_data(char *filename, int **mainMat)
 		printf("File not found\n");
 		exit(1);
 	}
-	// Leitura dos parâmetros do problema
-	//fscanf(f, " pop: %d", &x.popsize);
-	//fscanf(f, " pm: %f", &x.pm);
-	//fscanf(f, " pr: %f", &x.pr);
-	//fscanf(f, " tsize: %d", &x.tsize);
-	//fscanf(f, " max_gen: %d", &x.numGenerations);
-	//fscanf(f, " obj: %d", &x.numGenes);
-	//fscanf(f, " cap: %d", &x.capacity);
 
 	//Vai lendo linhas e descartando-as, se a linha começar por p, grava os vertices e arestas e sai do ciclo
 	while (fgets(line, sizeof line, f) != NULL) {
 
 		if (line[0] == 'p') {
-			sscanf(line, "%*s %*s %d %d", &inf.numGenes, &inf.arestas);
+			sscanf(line, "%*s %*s %d %*d", &inf.numGenes);
+			inf.popsize = inf.numGenes;
 			break;
 		}
 
@@ -51,10 +44,6 @@ struct info init_data(char *filename, int **mainMat)
 		printf("Number of vertices is superior to MAX_OBJ\n");
 		exit(1);
 	}
-
-	//Inicia outros valores
-	inf.ro = 0.0;
-	inf.popsize = inf.numGenes;
 
 	mat= malloc(sizeof(int)*(inf.numGenes)*(inf.numGenes));
 	if (!mat) {
@@ -140,12 +129,11 @@ float rand_01()
 
 // Escreve uma solução na consola
 // Parâmetro de entrada: populacao actual (pop) e estrutura com parâmetros (d)
-void write_best(chrom x, struct info d)
-{
-	int i;
+void write_best(chrom x, struct info d){
 
 	printf("\nBest individual: %4.1f\n", x.fitness);
-	for (i = 0; i < d.numGenes; i++)
-		printf("%d", x.p[i]);
-	putchar('\n');
+	for (int i = 0; i < d.numGenes; i++)
+		if(x.p[i])
+			printf("%2d  ", i + 1);
+	printf("\n");
 }
