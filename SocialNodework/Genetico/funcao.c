@@ -26,22 +26,18 @@ float eval_individual(int sol[], struct info d, int *mat, int *v){
 	}
 }
 
+//Procura uma colisão e remove esse nó da solução
 void repara(int sol[], int max, int *mat) {
 	
-	int maxcount, index;
-	int count = index = maxcount = 0;
-
 	for (int i = 0; i < max; i++) {
 		if (sol[i]) {
 			for (int j = 0; j < max; j++)
-				count += *(mat + i * max + j);
-			if (count > maxcount) {
-				maxcount = count;
-				index = i;
-			}
+				if (sol[j] && *(mat + i * max + j)) {
+					sol[i] = 0;
+					return;
+				}
 		}
 	}
-	sol[index] = 0;
 }
 
 // Avaliacao da população
