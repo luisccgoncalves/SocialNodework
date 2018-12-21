@@ -10,6 +10,12 @@
 #define DATA_DIR		"Data/"
 #define OUTPUT_DIR		"Output/"
 
+#define MUT_PROBAB		0.01	//[0-1]
+#define RECOMB_PROB		0.3		//[0-1]
+#define TORNAMNT_SZ		2
+#define MAX_GEN			100
+
+
 int main(int argc, char *argv[])
 {
 	char        nome_fich[100] = DATA_DIR;
@@ -38,7 +44,8 @@ int main(int argc, char *argv[])
 			runs = DEFAULT_RUNS;
 			//printf("Nome do Ficheiro: ");
 			//scanf("%49[^\n]s", &nome_fich);
-			strcat(nome_fich, "inst_teste.txt");
+			strcat(nome_fich, "c-fat500-1.clq");
+			//strcat(nome_fich, "inst_teste.txt");
 		}
 	// Se o número de execuções do processo for menor ou igual a 0, termina o programa
 	if (runs <= 0)
@@ -48,10 +55,10 @@ int main(int argc, char *argv[])
 	// Preenche a matriz com dados dos objectos (peso e valor) e a estrutura EA_param que foram definidos no ficheiro de input
 	EA_param = init_data(nome_fich, &mat);
 
-	EA_param.pm=0.01;
-	EA_param.pr=0.3;
-	EA_param.tsize=2;
-	EA_param.numGenerations=10000;
+	EA_param.pm = (float) MUT_PROBAB;
+	EA_param.pr = (float) RECOMB_PROB;
+	EA_param.tsize = TORNAMNT_SZ;
+	EA_param.numGenerations = MAX_GEN;
 
 	// Faz um ciclo com o número de execuções definidas
 	for (r = 0; r < runs; r++)
@@ -77,13 +84,16 @@ int main(int argc, char *argv[])
 		gen_actual = 1;
 		while (gen_actual <= EA_param.numGenerations)
 		{
+			
 			// Torneio binário para encontrar os progenitores (ficam armazenados no vector parents)
 			tournament(pop, EA_param, parents);
 
 			// Aplica os operadores genéticos aos pais (os descendentes ficam armazenados na estrutura pop)
 			genetic_operators(parents, EA_param, pop);
+
 			// Avalia a nova população (a dos filhos)
 			evaluate(pop, EA_param, mat);
+
 			// Actualiza a melhor solução encontrada
 			best_run = get_best(pop, EA_param, best_run);
 			gen_actual++;

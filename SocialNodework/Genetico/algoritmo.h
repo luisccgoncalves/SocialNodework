@@ -38,6 +38,8 @@ void genetic_operators(pchrom, struct info, pchrom);
 
 void crossover(pchrom, struct info, pchrom);
 
+void recombinacao_dois_pontos_corte(pchrom parents, struct info d, pchrom offspring);
+
 void mutation(pchrom, struct info);
 
 void mutacao_por_troca(pchrom, struct info);

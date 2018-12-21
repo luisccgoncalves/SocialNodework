@@ -62,10 +62,10 @@ void tournament_geral(pchrom pop, struct info d, pchrom parents)
 void genetic_operators(pchrom parents, struct info d, pchrom offspring)
 {
 	// Recombinação com um ponto de corte
-	crossover(parents, d, offspring);
+	//crossover(parents, d, offspring);
 	// Recombinação com dois pontos de corte
 	// Exercício 4.4(a)
-//	recombinacao_dois_pontos_corte(parents, d, offspring);
+	recombinacao_dois_pontos_corte(parents, d, offspring);
 	// Recombinação uniforme
 	// Exercício 4.4(b)
 //	recombinacao_uniforme(parents, d, offspring);
@@ -73,7 +73,7 @@ void genetic_operators(pchrom parents, struct info d, pchrom offspring)
 	mutation(offspring, d);
 	// Mutação por troca
 	// Exercício 4.3
-//	mutacao_por_troca(offspring, d);
+	mutacao_por_troca(offspring, d);
 }
 
 // Preenche o vector descendentes com o resultado da operação de recombinação com um ponto de corte
@@ -112,7 +112,7 @@ void recombinacao_dois_pontos_corte(pchrom parents, struct info d, pchrom offspr
 {
 	int i, j, point1, point2;
 
-	for (i = 0; i < d.popsize; i += 2)
+	for (i = 0; i < d.popsize-(d.popsize%2); i += 2)
 	{
 		if (rand_01() < d.pr)
 		{
@@ -190,19 +190,33 @@ void mutation(pchrom offspring, struct info d)
 // Parâmetros de entrada: estrutura com os descendentes (offspring) e estrutura com parâmetros (d)
 void mutacao_por_troca(pchrom offspring, struct info d)
 {
-	int i, pos1, pos2, aux;
+	//int i, pos1, pos2;
 
-	for (i = 0; i < d.popsize; i++)
-		if (rand_01() < d.pm)
-		{
-			do
-				pos1 = random_l_h(0, d.numGenes - 1);
-			while (offspring[i].p[pos1] == 1);
-			do
-				pos2 = random_l_h(0, d.numGenes - 1);
-			while (offspring[i].p[pos2] == 0);
-			aux = offspring[i].p[pos1];
-			offspring[i].p[pos1] = offspring[i].p[pos2];
-			offspring[i].p[pos2] = aux;
+	//for (i = 0; i < d.popsize; i++)
+	//	if (rand_01() < d.pm)
+	//	{
+	//		do
+	//			pos1 = random_l_h(0, d.numGenes - 1);
+	//		while (offspring[i].p[pos1] == 1);
+
+	//		do
+	//			pos2 = random_l_h(0, d.numGenes - 1);
+	//		while (offspring[i].p[pos2] == 0);
+
+	//		offspring[i].p[pos1] = !offspring[i].p[pos1];
+	//		offspring[i].p[pos2] = !offspring[i].p[pos2];
+	//	}
+	int a1, a2;
+	for (int i = 0; i < d.popsize; i++) {
+		if (rand_01() < d.pm) {
+			int timeOut = 0;
+			a1=random_l_h(0, d.numGenes - 1);
+			do {
+				a2= random_l_h(0, d.numGenes - 1);
+				timeOut++;
+			} while (a2==a1 && offspring[i].p[a1]== offspring[i].p[a2] && timeOut< d.popsize);
+			offspring[i].p[a1] = !offspring[i].p[a1];
+			offspring[i].p[a2] = !offspring[i].p[a2];
 		}
+	}
 }
