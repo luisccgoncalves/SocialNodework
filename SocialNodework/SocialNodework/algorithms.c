@@ -49,7 +49,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 
 	for (i = 0; i < num_iter; i++){
 		// Gera solução vizinha
-		gera_vizinho(sol, nova_sol, vert, 1);
+		gera_vizinho(sol, nova_sol, vert, 2);
 
 		//Se a solução vizinha for melhor, passa a ser essa a solução
 		custo_viz = calcula_fit(nova_sol, mat, vert);
