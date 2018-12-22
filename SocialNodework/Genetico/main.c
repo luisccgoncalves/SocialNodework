@@ -6,14 +6,14 @@
 #include "funcao.h"
 #include "utils.h"
 
-#define DEFAULT_RUNS	10
+#define DEFAULT_RUNS	5
 #define DATA_DIR		"Data/"
 #define OUTPUT_DIR		"Output/"
 
 #define MUT_PROBAB		0.01	//[0-1]
 #define RECOMB_PROB		0.3		//[0-1]
 #define TORNAMNT_SZ		2
-#define MAX_GEN			100
+#define MAX_GEN			5
 
 
 int main(int argc, char *argv[])
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 			runs = DEFAULT_RUNS;
 			//printf("Nome do Ficheiro: ");
 			//scanf("%49[^\n]s", &nome_fich);
-			strcat(nome_fich, "johnson8-2-4.clq");
+			strcat(nome_fich, "c-fat500-1.clq");
 			//strcat(nome_fich, "inst_teste.txt");
 		}
 	// Se o número de execuções do processo for menor ou igual a 0, termina o programa
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
 	//EA_param.pm = (float) MUT_PROBAB;
 	//EA_param.pr = (float) RECOMB_PROB;
-	FILE *f = fopen("gen-johnson8-2-4.clq.csv","w");
+	FILE *f = fopen("c-fat500-1-250-500.clq.csv","w");
 	float inc = 0.01;
 	EA_param.tsize = TORNAMNT_SZ;
 	EA_param.numGenerations = MAX_GEN;
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 		fprintf(f, "%.2f;", i);
 	fprintf(f, "\n");
 
-	for (EA_param.pm = 0; EA_param.pm <= 1+inc; EA_param.pm += inc) {
+	for (EA_param.pm = 0.5; EA_param.pm <= 1; EA_param.pm += inc) {
 		fprintf(f, "%.2f;", EA_param.pm);
 		for (EA_param.pr = 0; EA_param.pr <= 1+inc; EA_param.pr += inc) {
 			

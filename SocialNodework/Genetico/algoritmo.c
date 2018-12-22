@@ -190,22 +190,6 @@ void mutation(pchrom offspring, struct info d)
 // Parâmetros de entrada: estrutura com os descendentes (offspring) e estrutura com parâmetros (d)
 void mutacao_por_troca(pchrom offspring, struct info d)
 {
-	//int i, pos1, pos2;
-
-	//for (i = 0; i < d.popsize; i++)
-	//	if (rand_01() < d.pm)
-	//	{
-	//		do
-	//			pos1 = random_l_h(0, d.numGenes - 1);
-	//		while (offspring[i].p[pos1] == 1);
-
-	//		do
-	//			pos2 = random_l_h(0, d.numGenes - 1);
-	//		while (offspring[i].p[pos2] == 0);
-
-	//		offspring[i].p[pos1] = !offspring[i].p[pos1];
-	//		offspring[i].p[pos2] = !offspring[i].p[pos2];
-	//	}
 	int a1, a2;
 	for (int i = 0; i < d.popsize; i++) {
 		if (rand_01() < d.pm) {
