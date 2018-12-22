@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 		runs = DEFAULT_RUNS;
 		//printf("Nome do Ficheiro: ");
 		//scanf("%49[^\n]s",&filename);
-		strcpy(filename, "c-fat500-1.clq");
+		strcpy(filename, "johnson8-2-4.clq");
 		strcat(fileAddr, filename);
 	}
 	else {
@@ -46,8 +46,12 @@ int main(int argc, char *argv[]) {
 
 	solution = malloc(sizeof(int)*vertices);
 	bestSolution = malloc(sizeof(int)*vertices);
+
+	//Variáveis usadas apenas no CSV
 	solutionStorage = malloc(sizeof(int)*vertices*runs);
 	custoStorage = malloc(sizeof(int)*runs);
+
+	//Verificação de erro de alocação de memória
 	if (!solution || !bestSolution || !solutionStorage || !custoStorage) {
 		printf("Erro de memoria!\n");
 		exit(1);
@@ -100,6 +104,8 @@ int main(int argc, char *argv[]) {
 	free(adjMat);
 	free(solution);
 	free(bestSolution);
+	free(custoStorage);
+	free(solutionStorage);
 
 	return 0;
 }

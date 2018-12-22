@@ -6,8 +6,8 @@
 #include <stdio.h>
 
 #define BUFF			100
-#define DEFAULT_RUNS	50
-#define MAX_ITERATIONS	100
+#define DEFAULT_RUNS	30
+#define MAX_ITERATIONS	1000
 #define DATA_DIR		"Data/"
 #define OUTPUT_DIR		"Output/"
 

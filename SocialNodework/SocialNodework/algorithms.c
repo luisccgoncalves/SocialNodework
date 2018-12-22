@@ -37,6 +37,12 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 {
 	int *nova_sol, custo, custo_viz, i;
 
+	FILE *f = fopen("hilltrace.csv", "a");
+	if (!f) {
+		printf("Erro no acesso ao ficheiro CSV\n");
+		exit(1);
+	}
+
 	// Aloca espaço em memória para guardar a nova solução
 	nova_sol = malloc(sizeof(int)*vert);
 	if (nova_sol == NULL){
@@ -49,7 +55,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 
 	for (i = 0; i < num_iter; i++){
 		// Gera solução vizinha
-		gera_vizinho(sol, nova_sol, vert, 2);
+		gera_vizinho(sol, nova_sol, vert, 1);
 
 		//Se a solução vizinha for melhor, passa a ser essa a solução
 		custo_viz = calcula_fit(nova_sol, mat, vert);
@@ -57,8 +63,10 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 			memcpy(sol, nova_sol, sizeof (int)*vert);
 			custo = custo_viz;
 		}
+		fprintf(f,"%d;", custo);
 	}
-
+	fprintf(f,"\n");
+	fclose(f);
 	// Liberta a memória usada para guardar a nova solução
 	free(nova_sol);
 	// Devolve o custo da melhor solução encontrada
