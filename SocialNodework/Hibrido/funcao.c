@@ -45,7 +45,7 @@ void repara(int sol[], int max, int *mat) {
 // Parâmetros de saída: Preenche pop com os valores de fitness e de validade para cada solução
 void evaluate(pchrom pop, struct info d, int *mat) {
 
-	int rep = 0;
+	int rep = 1;
 
 	for (int i = 0; i < d.popsize; i++) {
 

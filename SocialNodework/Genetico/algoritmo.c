@@ -62,18 +62,18 @@ void tournament_geral(pchrom pop, struct info d, pchrom parents)
 void genetic_operators(pchrom parents, struct info d, pchrom offspring)
 {
 	// Recombinação com um ponto de corte
-	crossover(parents, d, offspring);
+	//crossover(parents, d, offspring);
 	// Recombinação com dois pontos de corte
 	// Exercício 4.4(a)
-	//recombinacao_dois_pontos_corte(parents, d, offspring);
+	recombinacao_dois_pontos_corte(parents, d, offspring);
 	// Recombinação uniforme
 	// Exercício 4.4(b)
-//	recombinacao_uniforme(parents, d, offspring);
+	//recombinacao_uniforme(parents, d, offspring);
 	// Mutação binária
 	mutation(offspring, d);
 	// Mutação por troca
 	// Exercício 4.3
-	mutacao_por_troca(offspring, d);
+	//mutacao_por_troca(offspring, d);
 }
 
 // Preenche o vector descendentes com o resultado da operação de recombinação com um ponto de corte

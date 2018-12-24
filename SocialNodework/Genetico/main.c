@@ -6,14 +6,14 @@
 #include "funcao.h"
 #include "utils.h"
 
-#define DEFAULT_RUNS	5
+#define DEFAULT_RUNS	10
 #define DATA_DIR		"Data/"
 #define OUTPUT_DIR		"Output/"
 
 #define MUT_PROBAB		0.01	//[0-1]
-#define RECOMB_PROB		0.3		//[0-1]
+#define RECOMB_PROB		0.95	//[0-1]
 #define TORNAMNT_SZ		2
-#define MAX_GEN			5
+#define MAX_GEN			1
 
 
 int main(int argc, char *argv[])
@@ -22,31 +22,32 @@ int main(int argc, char *argv[])
 	struct info EA_param;
 	pchrom      pop = NULL, parents = NULL;
 	chrom       best_run, best_ever;
-	int         gen_actual, r, runs, i, inv, *mat;
+	int         gen_actual, max_gen, r, runs, i, inv, *mat;
 	float       mbf = 0.0;
 
 	// Lê os argumentos de entrada
 	if (argc == 3)
 	{
-		runs = atoi(argv[2]);
+		max_gen = atoi(argv[2]);
 		strcat(nome_fich, argv[1]);
 	}
 	else
-		// Se o número de execuções do processo não for colocado nos argumentos de entrada, define-o com um valor por defeito
+		// Se o número de gerações não for colocado nos argumentos de entrada, define-o com um valor por defeito
 		if (argc == 2)
 		{
-			runs = DEFAULT_RUNS;
+			max_gen = MAX_GEN;
 			strcat(nome_fich, argv[1]);
 		}
 	// Se o nome do ficheiro de informações não for colocado nos argumentos de entrada, pede-o novamente
 		else
 		{
-			runs = DEFAULT_RUNS;
+			max_gen = MAX_GEN;
 			//printf("Nome do Ficheiro: ");
 			//scanf("%49[^\n]s", &nome_fich);
-			strcat(nome_fich, "c-fat500-1.clq");
-			//strcat(nome_fich, "inst_teste.txt");
+			strcat(nome_fich, "johnson8-4-4.clq");
 		}
+
+	runs = DEFAULT_RUNS;
 	// Se o número de execuções do processo for menor ou igual a 0, termina o programa
 	if (runs <= 0)
 		return 0;
@@ -55,21 +56,21 @@ int main(int argc, char *argv[])
 	// Preenche a matriz com dados dos objectos (peso e valor) e a estrutura EA_param que foram definidos no ficheiro de input
 	EA_param = init_data(nome_fich, &mat);
 
-	//EA_param.pm = (float) MUT_PROBAB;
-	//EA_param.pr = (float) RECOMB_PROB;
-	FILE *f = fopen("c-fat500-1-250-500.clq.csv","w");
-	float inc = 0.01;
+	EA_param.pm = (float) MUT_PROBAB;
+	EA_param.pr = (float) RECOMB_PROB;
+	//FILE *f = fopen("c-fat500-1.clq.new.csv","w");
+	//float inc = 0.01;
 	EA_param.tsize = TORNAMNT_SZ;
-	EA_param.numGenerations = MAX_GEN;
+	EA_param.numGenerations = max_gen;
 
-	fprintf(f, ";");
-	for(float i=0;i<=1+inc;i+= inc)
-		fprintf(f, "%.2f;", i);
-	fprintf(f, "\n");
+	//fprintf(f, ";");
+	//for(float i=0;i<=1+inc;i+= inc)
+	//	fprintf(f, "%.2f;", i);
+	//fprintf(f, "\n");
 
-	for (EA_param.pm = 0.5; EA_param.pm <= 1; EA_param.pm += inc) {
-		fprintf(f, "%.2f;", EA_param.pm);
-		for (EA_param.pr = 0; EA_param.pr <= 1+inc; EA_param.pr += inc) {
+	//for (EA_param.pm = 0; EA_param.pm <= 1; EA_param.pm += inc) {
+	//	fprintf(f, "%.2f;", EA_param.pm);
+	//	for (EA_param.pr = 0; EA_param.pr <= 1+inc; EA_param.pr += inc) {
 			
 			// Faz um ciclo com o número de execuções definidas
 			for (r = 0, mbf=0; r < runs; r++)
@@ -108,15 +109,18 @@ int main(int argc, char *argv[])
 					// Actualiza a melhor solução encontrada
 					best_run = get_best(pop, EA_param, best_run);
 					gen_actual++;
+
+					printf("%d ",gen_actual-1);
 				}
+
 				// Contagem das soluções inválidas
 				for (inv = 0, i = 0; i < EA_param.popsize; i++)
 					if (pop[i].valido == 0)
 						inv++;
 				// Escreve resultados da repetição que terminou
-				//printf("\nRepeticao %d:", r);
-				//write_best(best_run, EA_param);
-				//printf("\nPercentagem Invalidos: %f\n", 100 * (float)inv / EA_param.popsize);
+				printf("\nRepeticao %d:", r+1);
+				write_best(best_run, EA_param);
+				printf("\nPercentagem Invalidos: %f\n", 100 * (float)inv / EA_param.popsize);
 				mbf += best_run.fitness;
 				if (r == 0 || best_run.fitness > best_ever.fitness)
 					best_ever = best_run;
@@ -124,14 +128,14 @@ int main(int argc, char *argv[])
 				free(parents);
 				free(pop);
 			}
-			fprintf(f, "%.2f;",mbf/r);
-			printf("%.2f %.2f %.2f\n", EA_param.pm, EA_param.pr, mbf / r);
-		}
-		fprintf(f, "\n");
-	}
+	//		fprintf(f, "%.2f;",mbf/r);
+	//		printf("%.2f %.2f %.2f\n", EA_param.pm, EA_param.pr, mbf / r);
+	//	}
+	//	fprintf(f, "\n");
+	//}
 
 
-	fclose(f);
+	//fclose(f);
 	// Escreve resultados globais
 	printf("\n\nMBF: %f\n", mbf / r);
 	printf("\nMelhor solucao encontrada");
