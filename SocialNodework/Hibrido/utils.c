@@ -81,21 +81,22 @@ int flip()
 // Criacao da populacao inicial. O vector e alocado dinamicamente
 // Parâmetro de entrada: Estrutura com parâmetros do problema
 // Parâmetro de saída: Preenche da estrutura da população apenas o vector binário com os elementos que estão dentro ou fora da mochila
-pchrom init_pop(struct info d)
-{
+pchrom init_pop(struct info d, int *mat){
 	int     i, j;
 	pchrom  indiv;
 
 	indiv = malloc(sizeof(chrom)*d.popsize);
-	if (indiv == NULL)
-	{
+	if (indiv == NULL){
 		printf("Erro na alocacao de memoria\n");
 		exit(1);
 	}
-	for (i = 0; i < d.popsize; i++)
-	{
+
+	for (i = 0; i < d.popsize; i++){
+
 		for (j = 0; j < d.numGenes; j++)
 			indiv[i].p[j] = flip();
+		
+		//trepa_colinas(indiv[i].p, mat, d.numGenes, d.numGenerations);
 	}
 	return indiv;
 }

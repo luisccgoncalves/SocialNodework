@@ -10,10 +10,10 @@
 #define DATA_DIR		"Data/"
 #define OUTPUT_DIR		"Output/"
 
-#define MUT_PROBAB		0.01	//[0-1]
-#define RECOMB_PROB		0.95	//[0-1]
+#define MUT_PROBAB		0.02	//[0-1]
+#define RECOMB_PROB		0.91	//[0-1]
 #define TORNAMNT_SZ		2
-#define MAX_GEN			1
+#define MAX_GEN			100
 
 
 int main(int argc, char *argv[])
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 			max_gen = MAX_GEN;
 			//printf("Nome do Ficheiro: ");
 			//scanf("%49[^\n]s", &nome_fich);
-			strcat(nome_fich, "johnson8-4-4.clq");
+			strcat(nome_fich, "c-fat500-1.clq");
 		}
 
 	runs = DEFAULT_RUNS;
@@ -77,7 +77,8 @@ int main(int argc, char *argv[])
 	{
 		//printf("Repeticao %d\n", r + 1);
 		// Geração da população inicial
-		pop = init_pop(EA_param);
+		pop = init_pop(EA_param, mat);
+		
 		// Avalia a população inicial
 		evaluate(pop, EA_param, mat);
 		// Como ainda não existe, escolhe-se como melhor solução a primeira da população (poderia ser outra qualquer)
@@ -110,7 +111,7 @@ int main(int argc, char *argv[])
 			best_run = get_best(pop, EA_param, best_run);
 			gen_actual++;
 
-			printf("%d ", gen_actual - 1);
+			//printf("%d ", gen_actual - 1);
 		}
 
 		// Contagem das soluções inválidas

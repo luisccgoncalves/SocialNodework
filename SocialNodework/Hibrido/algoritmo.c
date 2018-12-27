@@ -73,7 +73,7 @@ void genetic_operators(pchrom parents, struct info d, pchrom offspring)
 	mutation(offspring, d);
 	// Mutação por troca
 	// Exercício 4.3
-	mutacao_por_troca(offspring, d);
+	//mutacao_por_troca(offspring, d);
 }
 
 // Preenche o vector descendentes com o resultado da operação de recombinação com um ponto de corte
@@ -238,6 +238,26 @@ void gera_vizinho(int a[], int b[], int n, int viz) {
 	free(vizMat);
 }
 
+int calcula_fit(int a[], int *mat, int vert)
+{
+	int colisao = 0, total = 0;
+	int i, j;
+
+	for (i = 0; i < vert; i++) {
+		if (a[i]) {
+			total++;					//Conta 1 nó na solução
+			for (j = 0; j < vert; j++)
+				if (a[j] && *(mat + i * vert + j))
+					colisao++;			//Se o nó tiver uma colisão com outro membro da solução, conta uma colisão
+		}
+	}
+
+	if (colisao == 0)
+		return total;		//Se não houverem colisões, é uma solução válida e devolve o nº de nós do grupo
+	else
+		return -colisao;	//Se houverem penaliza a qualidade. (MAIS colisões == MENOS qualidade)
+}
+
 int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 {
 	int *nova_sol, custo, custo_viz, i;
@@ -262,6 +282,7 @@ int trepa_colinas(int sol[], int *mat, int vert, int num_iter)
 			memcpy(sol, nova_sol, sizeof(int)*vert);
 			custo = custo_viz;
 		}
+
 	}
 
 	// Liberta a memória usada para guardar a nova solução

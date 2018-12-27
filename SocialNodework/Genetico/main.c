@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 					best_run = get_best(pop, EA_param, best_run);
 					gen_actual++;
 
-					printf("%d ",gen_actual-1);
+					//printf("%d ",gen_actual-1);
 				}
 
 				// Contagem das soluções inválidas

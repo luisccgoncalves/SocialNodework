@@ -54,5 +54,7 @@ void evaluate(pchrom pop, struct info d, int *mat) {
 			if (pop[i].valido == 0 && rep)
 				repara(pop[i].p, d.numGenes, mat);
 		} while (pop[i].valido == 0 && rep);
+
+		trepa_colinas(pop[i].p, mat, d.numGenes, d.numGenerations);
 	}
 }
